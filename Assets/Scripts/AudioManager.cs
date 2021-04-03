@@ -7,16 +7,18 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// 单例
     /// </summary>
-    public static AudioManager instance;
-    public static AudioManager Instance
+    public static AudioManager Instance { get; private set; }
+
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if(instance == null)
-            {
-                instance = new AudioManager();
-            }
-            return instance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
